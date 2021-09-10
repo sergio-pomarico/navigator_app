@@ -13,16 +13,16 @@ class AppRouteInformationParser extends RouteInformationParser<AppPath> {
     if (path.isHomePage) {
       return RouteInformation(location: '/list');
     }
+    if (path.isCategoryPage) {
+      return RouteInformation(location: '/categoty/${path.categoryId}');
+    }
 
     return RouteInformation(location: '/');
   }
 
   @override
   Future<AppPath> parseRouteInformation(RouteInformation routeInformation) {
-    Uri uri = Uri.parse(routeInformation.location ?? '');
-    if (uri.pathSegments.isEmpty) {
-      return SynchronousFuture(AppPath.home());
-    }
-    return SynchronousFuture(AppPath.unknown());
+    AppPath path = AppPath.parse(routeInformation.location ?? '');
+    return SynchronousFuture(path);
   }
 }

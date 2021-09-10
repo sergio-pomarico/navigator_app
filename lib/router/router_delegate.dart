@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// ignore: unused_import
-import 'package:navigator_application/pages/categories_view.dart';
 import 'package:navigator_application/router/app_path.dart';
 import 'package:navigator_application/router/page_manager.dart';
 import 'package:provider/provider.dart';
@@ -27,11 +25,6 @@ class AppRouteDelegate extends RouterDelegate<AppPath>
             );
           },
         ),
-        // pages: [
-        //   MaterialPage(
-        //       child: CategoriesPage(), key: ValueKey('/list'), name: 'list'),
-        // ],
-        // onPopPage: (route, result) => route.didPop(result),
       );
 
   bool _popPage(Route<dynamic> route, dynamic result) {
@@ -45,13 +38,11 @@ class AppRouteDelegate extends RouterDelegate<AppPath>
   }
 
   @override
-  Future<bool> popRoute() {
-    return super.popRoute();
-  }
+  AppPath get currentConfiguration => _pageManager.currentPath;
 
   @override
-  Future<void> setNewRoutePath(AppPath configuration) {
-    return SynchronousFuture(null);
+  Future<void> setNewRoutePath(AppPath configuration) async {
+    await _pageManager.setNewRoutePath(configuration);
   }
 
   @override
